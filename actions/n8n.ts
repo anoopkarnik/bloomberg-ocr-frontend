@@ -16,7 +16,6 @@ export const imageToGoogleSheetWorkflow = async (type: string,image: File, curre
     }
 
     const result = await response.json();
-    console.log("Processing result:", result);
     return result;
   } catch (error) {
     console.error("Error in imageToGoogleSheetWorkflow:", error);
