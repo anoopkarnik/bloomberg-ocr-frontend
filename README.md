@@ -1,36 +1,134 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bloomberg Terminal OCR to Google Sheets Application
 
-## Getting Started
+## 📌 Overview
 
-First, run the development server:
+This Next.js application is designed to automate data extraction from Bloomberg Terminal screenshots using Optical Character Recognition (OCR) and seamlessly upload the extracted data into Google Sheets. It provides various dedicated forms tailored for different Bloomberg data categories such as Points, Curves, Volatility, Inflation, Spots, and Seasonality.
+
+---
+
+## 🚀 Features
+
+* **OCR Integration:** Extract data from Bloomberg Terminal screenshots automatically.
+* **Dynamic Forms:** Specific forms for different data types including Points, Curves, Spots, Volatility, Inflation, and Seasonality.
+* **Google Sheets Integration:** Automated data upload directly into Google Sheets via an n8n workflow.
+* **Real-time Notifications:** Users are notified via toast messages when workflows start and complete.
+
+---
+
+## 🔧 Technologies Used
+
+* **Next.js:** Frontend framework
+* **Tailwind CSS:** Styling
+* **shadcn/ui:** UI components
+* **React Hook Form & Zod:** Form handling and validation
+* **PaddleOCR (Python API):** OCR functionality
+* **n8n:** Workflow automation
+* **Google Sheets API:** Data upload
+* **Docker:** Containerization
+
+---
+
+## 📂 Project Structure
+
+```
+app/
+├── page.tsx
+components/
+├── PointsForm.tsx
+├── CurvesForm.tsx
+├── VolatilityForm.tsx
+├── InflationForm.tsx
+├── SpotsForm.tsx
+├── SeasonalityForm.tsx
+├── ImageUpload.tsx
+├── LoadingButton.tsx
+actions/
+├── n8n.ts
+scripts/
+├── main.py (Python OCR API)
+Dockerfile
+requirements.txt
+```
+
+---
+
+## 🛠️ Getting Started
+
+### Prerequisites
+
+* Node.js
+* Docker & Docker Compose
+* Google Sheets account and API credentials
+* n8n instance
+
+### Installation
+
+Clone repository and install dependencies:
+
+```bash
+git clone <repository-url>
+cd bloomberg-ocr-nextjs-app
+npm install
+```
+
+Build Docker Container:
+
+```bash
+docker-compose build
+docker-compose up -d
+```
+
+### Configuration
+
+Set your environment variables in a `.env.local` file:
+
+```env
+N8N_WEBHOOK_URL1=<your-n8n-webhook-url>
+N8N_WEBHOOK_URL2=<your-n8n-webhook-url>
+```
+
+### Run Locally
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📑 Forms and Functionality
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### PointsForm
 
-## Learn More
+* Input: Currency, Bloomberg Terminal screenshot
+* Workflow: Extracts "Points" data and updates Google Sheet
 
-To learn more about Next.js, take a look at the following resources:
+### CurvesForm
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* Input: Curve Number, Bloomberg Terminal screenshot
+* Workflow: Extracts "Curves" data
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### VolatilityForm
 
-## Deploy on Vercel
+* Input: Currency Pair, Bloomberg Terminal screenshot
+* Workflow: Extracts "Volatility" data
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### InflationForm
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+* Input: Base Index, Bloomberg Terminal screenshot
+* Workflow: Extracts "Inflation" data
+
+### SpotsForm
+
+* Input: Bloomberg Terminal screenshot
+* Workflow: Extracts "Spots" data
+
+### SeasonalityForm
+
+* Input: Bloomberg Terminal screenshot
+* Workflow: Extracts "Seasonality" data
+
+---
+
+## 🚦 Workflow Automation (n8n)
+
+Ensure your n8n workflows are properly configured to receive data from the provided webhook URLs. Data extracted via OCR is sent to n8n, which then updates the designated Google Sheets.
