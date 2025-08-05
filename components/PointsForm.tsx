@@ -15,12 +15,12 @@ import {
 import { imageToGoogleSheetWorkflow } from "@/actions/n8n"
 import { toast } from "sonner"
 import { useState } from "react"
-import { waitFor } from "@/lib/waitFor"
 import { Separator } from "@radix-ui/react-select"
 import LoadingButton from "./LoadingButton"
 import { ImageUploader } from "./ImageUpload"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 import { Card } from "./ui/card"
+import { currencies } from "@/lib/contants"
 
 const formSchema = z.object({
   image: z.instanceof(File).refine((file) => file.size > 0, {
@@ -29,15 +29,8 @@ const formSchema = z.object({
   currency: z.string().min(3).max(10)
 })
 
-interface Props {
-    type: string;
-}
 
-const currencies = [
-  { id: "USD", name: "US Dollar" },
-  { id: "EURO", name: "Euro" },
-]
-export default function OCRForm({ type }: Props) {
+export default function PointsForm() {
 
   const [loading, setLoading] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -57,7 +50,11 @@ export default function OCRForm({ type }: Props) {
       toast("The workflow has started", {
           description: "Please wait for a minute for the sheet to be updated",
         })
-      await imageToGoogleSheetWorkflow(type, values.image, values.currency);
+      await imageToGoogleSheetWorkflow({
+        type: "points",
+        image: values.image,
+        currency: values.currency,
+      });
 
 
       // toast("The workflow has completed", {
@@ -75,7 +72,7 @@ export default function OCRForm({ type }: Props) {
                 <div className='space-y-2 w-full col-span-2'>
                     <div>
                         <h3 className='text-2xl font-bold'>
-                            Bloomberg Terminal Image to Google Sheet with OCR
+                            Bloomberg Terminal Image Upload - Points
                         </h3>
                         <p className='text-description text-sm font-light text-muted-foreground'>
                             This form allows you to upload an image from the Bloomberg Terminal and extract data from it using OCR and upload it to a Google Sheet.
