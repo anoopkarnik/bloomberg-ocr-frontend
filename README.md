@@ -85,8 +85,14 @@ N8N_WEBHOOK_URL2=<your-n8n-webhook-url>
 docker-compose build
 docker-compose up -d
 ```
+
 4) Open the app in browser - http://localhost:5103
 
+5) Stop the app by below command: in the root directory of this app
+
+```bash
+docker-compose down
+```
 
 ### Using Npm in Dev Mode
 
