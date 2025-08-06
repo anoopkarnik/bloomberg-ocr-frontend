@@ -61,37 +61,57 @@ requirements.txt
 * Google Sheets account and API credentials
 * n8n instance
 
-### Installation
+### Installation and Running the App
 
-Clone repository and install dependencies:
+#### Using Docker (running in local permanently and starts on restart, only stops when using the down command below)
+
+1) Clone repository and install dependencies:
 
 ```bash
 git clone <repository-url>
 cd bloomberg-ocr-nextjs-app
-npm install
 ```
 
-Build Docker Container:
+2) Set your environment variables in a `.env` file in root:
+
+```env
+N8N_WEBHOOK_URL1=<your-n8n-webhook-url> (only the the main website link where n8n is hosted with "/" in the end)
+N8N_WEBHOOK_URL2=<your-n8n-webhook-url>
+```
+
+3) Build Docker Container:
 
 ```bash
 docker-compose build
 docker-compose up -d
 ```
+4) Open the app in browser - http://localhost:5103
 
-### Configuration
 
-Set your environment variables in a `.env.local` file:
+### Using Npm in Dev Mode
+
+1) Clone repository and install dependencies:
+
+```bash
+git clone <repository-url>
+cd bloomberg-ocr-frontend
+npm install
+```
+
+2) Set your environment variables in a `.env` file in root:
 
 ```env
-N8N_WEBHOOK_URL1=<your-n8n-webhook-url>
+N8N_WEBHOOK_URL1=<your-n8n-webhook-url> (only the the main website link where n8n is hosted with "/" in the end)
 N8N_WEBHOOK_URL2=<your-n8n-webhook-url>
 ```
 
-### Run Locally
-
+3) Running Locally
 ```bash
 npm run dev
 ```
+
+4) Open the app in browser - http://localhost:3000
+
 
 ---
 

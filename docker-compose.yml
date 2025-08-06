@@ -1,0 +1,15 @@
+version: "3.8"      # or "3" or whatever version you use
+
+networks:
+  ocr-app:
+
+services:
+    frontend:
+      build:
+        context: ./frontend
+        dockerfile: Dockerfile
+      networks: ['ocr-app']
+      ports:
+        - 5103:3000                  # Change to your preferred local:container port
+      env_file:
+        - .env
