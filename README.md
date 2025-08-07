@@ -82,8 +82,8 @@ N8N_WEBHOOK_URL2=<your-n8n-webhook-url>
 3) Build Docker Container:
 
 ```bash
-docker-compose build
-docker-compose up -d
+docker compose build
+docker compose up -d
 ```
 
 4) Open the app in browser - http://localhost:5103
